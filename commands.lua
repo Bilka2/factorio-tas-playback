@@ -212,20 +212,20 @@ TAScommands["print"] = function (tokens, myplayer)
 end
 
 TAScommands["recipe"] = function (tokens, myplayer)
-  myplayer.update_selected_entity(tokens[2])
+  local position = tokens[2]
+  local recipe = tokens[3]
+  myplayer.update_selected_entity(position)
   if not myplayer.selected then
-	util.errprint("Setting recipe: Entity at position {" .. tokens[2][1] .. "," .. tokens[2][2] .. "} could not be selected.")
-	return
+    util.errprint("Setting recipe: Entity at position {" .. position[1] .. "," .. position[2] .. "} could not be selected.")
+    return
   end
-  local ent = myplayer.surface.create_entity{name = myplayer.selected.name, position = {1000000,100000}, force="player", recipe=tokens[3]}
-  local items = myplayer.selected.copy_settings(ent)
-  ent.destroy()
+  local items = myplayer.selected.set_recipe(recipe) --currently bugged, see https://forums.factorio.com/57452
   if items then
     for name, count in pairs(items) do
       myplayer.insert{name=name, count=count}
     end
   end
-  util.debugprint("Setting recipe: " .. tokens[3] .. " at position {" .. tokens[2][1] .. "," .. tokens[2][2] .. "}.")
+  util.debugprint("Setting recipe: " .. recipe .. " at position {" .. position[1] .. "," .. position[2] .. "}.")
 end
 
 TAScommands["rotate"] = function (tokens, myplayer)
