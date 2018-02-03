@@ -70,7 +70,7 @@ TAScommands["build"] = function (tokens, myplayer)
 		return
 	end
 
-	-- Check if we can actually place the entity at this tile and are in range of it (thank you for this amazing function Rseding)
+	-- Check if we can actually place the entity at this tile and are in range of it (Thank you for this amazing function Rseding)
 	local canplace = myplayer.can_place_entity{name = item, position = position, direction = direction}
 	
 	-- Check if we can fast replace
@@ -105,7 +105,7 @@ TAScommands["put"] = function (tokens, myplayer)
     return
   end
 
-  if not util.inrange(position, myplayer) then
+  if not myplayer.can_reach_entity(myplayer.selected) then
     util.errprint("Put failed: You are trying to reach too far.")
     return
   end
@@ -119,8 +119,8 @@ TAScommands["put"] = function (tokens, myplayer)
     return
   end
   if not otherinv then
-	util.errprint("Put failed : Target doesn't have an inventory at {" .. position[1] .. "," .. position[2] .. "}.")
-	return
+    util.errprint("Put failed : Target doesn't have an inventory at {" .. position[1] .. "," .. position[2] .. "}.")
+    return
   end
 
   local inserted = otherinv.insert{name=item, count=toinsert}
@@ -144,7 +144,7 @@ TAScommands["speed"] = function (tokens, myplayer)
     game.speed = tokens[2]
     util.debugprint("Speed: " .. tokens[2])
   else
-    util.errprint("Speed failed : Changing the speed of the run is not allowed. ")
+    util.errprint("Speed failed: Changing the speed of the run is not allowed. ")
   end
 end
 
@@ -161,7 +161,7 @@ TAScommands["take"] = function (tokens, myplayer)
   end
 
   -- Check if we are in reach of this tile
-  if not util.inrange(position, myplayer) then
+  if not myplayer.can_reach_entity(myplayer.selected) then
     util.errprint("Take failed: You are trying to reach too far.")
     return
   end
@@ -175,8 +175,10 @@ TAScommands["take"] = function (tokens, myplayer)
 
   local totake = amount
   local amountintarget = otherinv.get_item_count(item)
-  if totake == "all" then totake = amountintarget
-  else totake = math.min(amountintarget, amount)
+  if totake == "all" then
+    totake = amountintarget
+  else
+    totake = math.min(amountintarget, amount)
   end
 
   if amountintarget == 0 then

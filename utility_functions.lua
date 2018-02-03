@@ -5,10 +5,6 @@ function util.roundn(x)
 	return x + 0.5 - (x + 0.5) % 1
 end
 
-function util.inrange(position, myplayer)
-	return ((position[1]-myplayer.position.x)^2+(position[2]-myplayer.position.y)^2) < 36
-end
-
 function util.prettytime()
 	local tick = game.tick - (global.start_tick or 0)
 	if settings.global["tas-pretty-time"].value then
