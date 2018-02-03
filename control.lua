@@ -1,4 +1,3 @@
-require("util")
 local util = require("utility_functions")
 local silo_script = require("silo-script")
 
