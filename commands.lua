@@ -80,7 +80,7 @@ TAScommands["build"] = function (tokens, myplayer)
 	local canplace = myplayer.surface.can_place_entity{name = item, position = position, direction = direction, force = "player"}
 	
 	-- Check if we can fast replace
-	local can_replace = util.can_fast_replace(item, position, myplayer)
+	local can_replace = myplayer.surface.can_fast_replace{name = item, position = position, direction = direction, force = "player"}
 	
 	if (not canplace) and (not can_replace) then
 		util.errprint("Build failed: Something that can't be fast replaced is in the way")
