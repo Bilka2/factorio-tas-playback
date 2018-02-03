@@ -1,10 +1,10 @@
 {
   "name": "tas_playback",
-  "version": "0.0.1",
-  "factorio_version" : "0.15",
+  "version": "0.0.2",
+  "factorio_version" : "0.16",
   "title": "TAS Playback",
   "author": "Starbrow, your name here, Alastor, and Bilka",
   "homepage": "",
   "description": "Plays back a prerecorded TAS",
-  "dependencies": ["base >= 0.15.30"],
+  "dependencies": ["base >= 0.16.22"]
 }
