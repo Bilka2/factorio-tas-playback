@@ -1,6 +1,6 @@
 require("util")
 local util = require("utility_functions")
-require("silo-script")
+local silo_script = require("silo-script")
 
 -- Global variables initialization
 local max_tick = 0
@@ -145,7 +145,6 @@ local function init_world(player_index) --does what the freeplay scenario usuall
 	-- Reveal the map around the player
 	local pos = myplayer.position
 	myplayer.force.chart(myplayer.surface, {{pos.x - 200, pos.y - 200}, {pos.x + 200, pos.y + 200}})
-	silo_script.gui_init(myplayer)
 end
 
 script.on_event(defines.events.on_player_created, function(event)
@@ -154,6 +153,7 @@ script.on_event(defines.events.on_player_created, function(event)
 	if global.init_on_player_created and (event.player_index == 1) then -- Only the first player created automatically starts the run
 		init_run(event.player_index)
 	end
+  silo_script.on_player_created(event)
 end)
 
 script.on_event(defines.events.on_player_joined_game, function (event)
@@ -172,7 +172,7 @@ end)
 script.on_init(function()
 	-- Global variables initialization
 	global.walkstate = {walking = false}
-	silo_script.init()
+	silo_script.on_init()
 end)
 
 remote.add_interface("TAS_playback", {launch = function() 
@@ -232,3 +232,4 @@ end)
 script.on_event(defines.events.on_rocket_launched, silo_script.on_rocket_launched)
 
 silo_script.add_remote_interface()
+silo_script.add_commands()
