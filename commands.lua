@@ -59,37 +59,37 @@ TAScommands["mine"] = function (tokens, myplayer)
 end
 
 TAScommands["build"] = function (tokens, myplayer)
-	local item = tokens[2]
-	local position = tokens[3]
-	local direction = tokens[4]
-	util.debugprint("Building: " .. item .. " on tile (" .. position[1] .. "," .. position[2] .. ")")
+  local item = tokens[2]
+  local position = tokens[3]
+  local direction = tokens[4]
+  util.debugprint("Building: " .. item .. " on tile (" .. position[1] .. "," .. position[2] .. ")")
 
-	-- Check if we have the item
-	if myplayer.get_item_count(item) == 0 then
-		util.errprint("Build failed: No item available")
-		return
-	end
+  -- Check if we have the item
+  if myplayer.get_item_count(item) == 0 then
+    util.errprint("Build failed: No item available")
+    return
+  end
 
-	-- Check if we can actually place the entity at this tile and are in range of it (Thank you for this amazing function Rseding)
-	local canplace = myplayer.can_place_entity{name = item, position = position, direction = direction}
-	
-	-- Check if we can fast replace
-	local can_replace = myplayer.surface.can_fast_replace{name = item, position = position, direction = direction, force = "player"}
-	
-	if (not canplace) and (not can_replace) then
-		util.errprint("Build failed: Something that can't be fast replaced is in the way or you are trying to place beyond realistic reach.")
-		return
-	end
+  -- Check if we can actually place the entity at this tile and are in range of it (Thank you for this amazing function Rseding)
+  local canplace = myplayer.can_place_entity{name = item, position = position, direction = direction}
+  
+  -- Check if we can fast replace
+  local can_replace = myplayer.surface.can_fast_replace{name = item, position = position, direction = direction, force = "player"}
+  
+  if (not canplace) and (not can_replace) then
+    util.errprint("Build failed: Something that can't be fast replaced is in the way or you are trying to place beyond realistic reach.")
+    return
+  end
 
-	-- If no errors, proceed to actually building things
-	-- Place the item
-	local created = myplayer.surface.create_entity{name = item, position = position, direction = direction, force="player", fast_replace = can_replace, player = myplayer}
-	-- Remove the placed item from the player (since he has now spent it)
-	if created and created.valid then
-		myplayer.remove_item({name = item, count = 1})
+  -- If no errors, proceed to actually building things
+  -- Place the item
+  local created = myplayer.surface.create_entity{name = item, position = position, direction = direction, force="player", fast_replace = can_replace, player = myplayer}
+  -- Remove the placed item from the player (since he has now spent it)
+  if created and created.valid then
+    myplayer.remove_item({name = item, count = 1})
     else
-		util.errprint("Build failed: Reason unknown.")
-	end
+    util.errprint("Build failed: Reason unknown.")
+  end
 end
 
 TAScommands["put"] = function (tokens, myplayer)
@@ -228,6 +228,7 @@ TAScommands["recipe"] = function (tokens, myplayer)
   util.debugprint("Setting recipe: " .. recipe .. " at position {" .. position[1] .. "," .. position[2] .. "}.")
 end
 
+--TODO: Change this to use LuaEntity::Rotate, this will however not allow setting it to a direction directly. Implement workaround?
 TAScommands["rotate"] = function (tokens, myplayer)
   local position = tokens[2]
   local direction = tokens[3]
