@@ -2,26 +2,25 @@
 TAS playback mod for factorio
 
 ## Installing the mod
-* If using git : clone to `factorio/mods/tas_playback_0.0.1`
-* If using an archive : Unpack the mod's contents into `factorio/mods/tas_playback_0.0.1`
+* If using git : clone to `factorio/mods/tas_playback_0.0.2`
+* If using an archive : Unpack the mod's contents into `factorio/mods/tas_playback_0.0.2`
 * If using the mod portal (shouldn't be possible at the moment, but whatever) : Install the mod and unpack its contents. 
 
 
 ## Creating a run
 To create a run : 
-* Create a new folder `factorio/mods/tas_playback_0.0.1/scenarios/YourNewRunName/`
+* Create a new folder `factorio/mods/tas_playback_0.0.2/scenarios/YourNewRunName/`
 * Create a blueprint.dat file containing your run's map, like you would to create a scenario, and copy it into this folder. 
- To do that : 
-	* Create a new game using your chosen map seed
-	* Save this game without doing anything in the world
+ To do that :
+	* Create a new game using your chosen map seed, using the map editor
+	* Save this scenario without doing anything in the world
 	* Exit factorio
-	* From the console, navigate into the factorio's binary folder
-	* Type the command `factorio --map2scenario mysave` (with mysave replaced by the name you used to save your map)
-	* Copy the file `factorio/scenarios/mysave/blueprint.dat` into `factorio/mods/tas_playback_0.0.1/scenarios/YourNewRunName/`
-	* You can now remove the folder `factorio/scenarios/mysave/` as well as your save with the empty world. 
-* Copy the files `configuration.lua` and `control.lua` from the folder `factorio/mods/tas_playback_0.0.1/scenarios/Test-TAS/` 
- into `factorio/mods/tas_playback_0.0.1/scenarios/YourNewRunName/`
-* Create the file that will contain the instructions for your run into the folder `factorio/mods/tas_playback_0.0.1/scenarios/YourNewRunName/`. 
+	* Go to the application directory, where mods and saves can be found: https://wiki.factorio.com/Application_directory#User_data_directory
+	* Go into the scenario folder, find your scenario, open it, copy the file `blueprint.dat` into `factorio/mods/tas_playback_0.0.2/scenarios/YourNewRunName/`
+	* You can now remove the scenario you created.
+* Copy the files `configuration.lua` and `control.lua` from the folder `factorio/mods/tas_playback_0.0.2/scenarios/Test-TAS/` 
+ into `factorio/mods/tas_playback_0.0.2/scenarios/YourNewRunName/`
+* Create the file that will contain the instructions for your run into the folder `factorio/mods/tas_playback_0.0.2/scenarios/YourNewRunName/`. 
  You can choose the name you want for this file. For example : `YourRunFile.lua`
 * Open the file configuration.lua in a text editor and edit the config.run_name and config.run_file variables to contain the name of your run's scenario and of the file that contains the commands. 
 In our case, we will have : 
